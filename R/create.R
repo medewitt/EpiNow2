@@ -295,10 +295,10 @@ create_stan_args <- function(model, data = NULL, init = "random",
     default_args$chains <- 4L
     default_args$control <- list(adapt_delta = 0.99, max_treedepth = 15)
     default_args$save_warmup <- FALSE
-    default_args$seed <- as.integer(runif(1, 1, 1e8))
+    default_args$seed <- sample.int(.Machine$integer.max, 1)
   }else if (method == "sampling" && backend != "rstan"){
     default_args$chains <- 4L
-    default_args$seed <- as.integer(runif(1, 1, 1e8))
+    default_args$seed <- sample.int(.Machine$integer.max, 1)
     default_args$iter_warmup <- 500L
     default_args$iter_sampling <- ceiling(samples / 4)
     default_args$parallel_chains <- 4L
@@ -310,7 +310,7 @@ create_stan_args <- function(model, data = NULL, init = "random",
     default_args$trials <- 10L
     default_args$iter <- 10000L
     default_args$output_samples <- samples
-    default_args$seed <- as.integer(runif(1, 1, 1e8))
+    default_args$seed <- sample.int(.Machine$integer.max, 1)
   }
   # join with user supplied settings
   if (!is.null(stan_args)) {
